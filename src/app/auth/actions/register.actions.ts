@@ -15,6 +15,6 @@ export const registerSuccessAction = createAction(
 )
   
 export const registerFailureAction = createAction(
-  ActionTypes.RGISTER_FAILURE,
+  ActionTypes.REGISTER_FAILURE,
   props<{errors: IBackendErrors}>()
 )

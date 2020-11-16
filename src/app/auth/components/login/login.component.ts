@@ -2,44 +2,40 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { ICurrentUser } from 'src/app/shared/types/CurrentUser.interface'
-import { AuthService } from '../../services/auth.service'
-import { register } from '../../actions/register.actions'
 import { isSubmittingSelector, validationErrors } from '../../store/selectors'
-import { IRegisterRequest } from '../../types/RegisterRequest.interface'
 import { IBackendErrors } from '../../types/backendErrors.interface'
+import { ILoginRequest } from '../../types/loginRequest.interface'
+import { login, loginSuccessAction } from '../../actions/login.actions'
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class RegisterComponent implements OnInit {
-  SignInForm: FormGroup
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup
   isSubmitting$: Observable<boolean>
   backendErrors$: Observable<IBackendErrors | null>
 
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.initializeForm()
-    this.initializeValues()
+    this.initializeValues() 
   }
   onSubmit() {
-    const request: IRegisterRequest = {
-      user: this.SignInForm.value,
+    const request: ILoginRequest = {
+      user: this.loginForm.value
     }
-    this.store.dispatch(register({ request }))
-    console.log(this.SignInForm.value)
+    this.store.dispatch(login({ request }))
+    console.log(this.loginForm.value)
   }
 
   initializeForm() {
-    this.SignInForm = this.fb.group({
-      username: ['', Validators.required],
+    this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     })
