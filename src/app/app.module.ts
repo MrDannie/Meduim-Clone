@@ -10,6 +10,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { EffectsModule } from '@ngrx/effects'
 import { TopBarModule } from './shared/modules/top-bar/top-bar.module'
 import { AuthInterceptor } from './shared/services/authInterceptor.service'
+import { AuthModule } from './auth/auth.module'
+import { GlobalFeedModule } from './globalFeed/global-feed.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +19,9 @@ import { AuthInterceptor } from './shared/services/authInterceptor.service'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AuthModule,
     TopBarModule,
+    GlobalFeedModule,
     StoreModule.forRoot([]),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
